@@ -36,9 +36,9 @@
 
 ### Warm-up 
 
-[ ] When typing `!name` the bot should write back the name of the user typing the command
+[x] When typing `!name` the bot should write back the name of the user typing the command
 
-[ ] When typing `!d6` the bot should answer with a value between 1 and 6
+[x] When typing `!d6` the bot should answer with a value between 1 and 6
 
 [ ] When typing "Salut tout le monde" (without the command sign), the bot should say "Salut tout seul" and ping the original author of the message 
 
