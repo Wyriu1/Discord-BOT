@@ -21,6 +21,10 @@ bot = commands.Bot(
 
 bot.author_id = 295229319309950977  # Change to your discord id
 
+listOfFunBanReason = ["Aucune raison",
+                      "Et ça fait tik tak boom",
+                      "Ca fait bim et ça fait boom",
+                      "La sentence est irrévocable"]
 @bot.event
 async def on_ready():  # When the bot is ready
     print("I'm in")
@@ -67,6 +71,15 @@ async def admin(ctx, member: discord.Member):
 
     await member.add_roles(admin_role)
     await ctx.send(f"Role admin given to {member.mention}")
+
+#Task 5 : Ban member
+@bot.command()
+async def ban(ctx, member: discord.Member, reason=None):
+    # Get a random reason if none is given from listOfFunBanReason
+    if reason is None:
+        reason = random.choice(listOfFunBanReason)
+    await member.ban(reason=reason)
+    await ctx.send(f"{member.mention} has been banned for the following reason: {reason}")
 
 
 
