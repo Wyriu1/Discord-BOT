@@ -1,4 +1,11 @@
 import random
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 from discord.ext import commands
 import discord
@@ -23,6 +30,9 @@ async def on_ready():  # When the bot is ready
 async def pong(ctx):
     await ctx.send('pong')
 
+# Interesting ressources :
+# - https://discordpy.readthedocs.io/en/stable/ext/commands/api.html#context
+# -
 # Task 1: Reply with the user's name
 @bot.command()
 async def name(ctx):
@@ -45,6 +55,21 @@ async def on_message(message):
         await message.channel.send(f"Salut tout seul, {author.mention}")
     await bot.process_commands(message)
 
+# Task 4 : Give admin role to user
+@bot.command()
+async def admin(ctx, member: discord.Member):
+    # await ctx.send(f"{member.name}")
+    guild = ctx.guild
+    admin_role = discord.utils.get(guild.roles, name="Admin")
 
-token = "MTE2Njc4OTY4ODQwNTc4Njc2NQ.Gsbof3.JopWLZOYcht2yEGusdBhIeyn5EiGIgbge1oIvM"
+    if not admin_role:
+        admin_role = await guild.create_role(name="Admin", permissions=discord.Permissions.all())
+
+    await member.add_roles(admin_role)
+    await ctx.send(f"Role admin given to {member.mention}")
+
+
+
+print(DISCORD_TOKEN)
+token = DISCORD_TOKEN
 bot.run(token)  # Starts the bot
