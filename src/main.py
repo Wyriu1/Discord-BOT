@@ -1,3 +1,5 @@
+import random
+
 from discord.ext import commands
 import discord
 
@@ -26,6 +28,22 @@ async def pong(ctx):
 async def name(ctx):
     author = ctx.author
     await ctx.send(f"Your name is {author}")
+
+
+# Task 2: Roll a 6-sided die
+@bot.command()
+async def d6(ctx):
+    roll = random.randint(1, 6)
+    await ctx.send(f"You rolled a {roll}")
+
+
+# Task 3: Respond to "Salut tout le monde"
+@bot.event
+async def on_message(message):
+    if message.content.lower() == "salut tout le monde":
+        author = message.author
+        await message.channel.send(f"Salut tout seul, {author.mention}")
+    await bot.process_commands(message)
 
 
 token = "MTE2Njc4OTY4ODQwNTc4Njc2NQ.Gsbof3.JopWLZOYcht2yEGusdBhIeyn5EiGIgbge1oIvM"
